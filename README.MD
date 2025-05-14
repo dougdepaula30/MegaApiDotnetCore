@@ -1,150 +1,153 @@
-<h1 align="center">
-  <br />
-  <img
-    src="./_docs/assets/icon.png"
-    alt="Mega Man Robots API"
-    width="150"
-  />
-  <br />
-  <b>Mega Man Robots API</b>
-  <br />
-  <sub
-    ><sup><b>(MEGA-MAN-ROBOTS)</b></sup></sub
-  >
-  <br />
-  <a
-    href="https://github.com/felipeAguiarCode/MegaApiDotnetCore/actions/workflows/build.yml"
-  >
-    <img
-      src="https://github.com/felipeAguiarCode/MegaApiDotnetCore/actions/workflows/build.yml/badge.svg"
-      alt=""
-    />
-  </a>
-  <a href="https://github.com/felipeAguiarCode/MegaApiDotnetCore/releases/latest">
-    <img
-      src="https://img.shields.io/github/v/release/felipeAguiarCode/MegaApiDotnetCore"
-      alt="Latest Release"
-    />
-  </a>
-</h1>
+**Mega Man Robots API**
 
-<p align="center">
-  This .NET Core API is designed to serve JSON formatted data about bosses from
-  the Mega Man series. It is a backend service built with .NET Core 3.1 and
-  various modern dependencies for data management and API response handling.
-  <br />
-</p>
+Este repositório contém a **Mega Man Robots API**, um serviço RESTful desenvolvido em .NET Core que disponibiliza informações sobre robôs do universo Mega Man. A documentação foi criada e estruturada utilizando ferramentas de IA (ChatGPT e GitHub Copilot) para ilustrar como elas podem agilizar a produção de documentações técnicas claras e organizadas.
 
-<p align="center">
-  Developed with Entity Framework Core and other modern .NET technologies, this
-  project aims to provide a robust API for accessing Mega Man robot data.
-  <br />
-</p>
+---
 
-<p align="center">
-  <br />
-  <img src="./_docs/assets/carbon.png" />
-</p>
+## Índice
 
-## API Endpoints
+1. [Visão Geral](#visão-geral)
+2. [Funcionalidades](#funcionalidades)
+3. [Pré-requisitos](#pré-requisitos)
+4. [Instalação e Execução](#instalação-e-execução)
+5. [Arquitetura do Projeto](#arquitetura-do-projeto)
+6. [Endpoints da API](#endpoints-da-api)
+7. [Exemplos de Uso](#exemplos-de-uso)
+8. [Diagrama de Fluxo](#diagrama-de-fluxo)
+9. [Como Contribuir](#como-contribuir)
+10. [Licença](#licença)
 
-<table align="center">
-  <tr>
-    <th>Method</th>
-    <th>Endpoint</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>GET</td>
-    <td>/api/v1/robots</td>
-    <td>Returns a list of all robots</td>
-  </tr>
-  <tr>
-    <td>GET</td>
-    <td>/api/v1/robots/{id}</td>
-    <td>Returns details of a specific robot by ID</td>
-  </tr>
-  <tr>
-    <td>POST</td>
-    <td>/api/v1/robots</td>
-    <td>Endpoint to create a new robot entry</td>
-  </tr>
-</table>
+---
 
-## Techniques Used
+## Visão Geral
 
-<p align="center">
-  - <b>Entity Framework Core:</b> ORM for data management.<br />
-  - <b>RESTful API Design:</b> Ensures clear and effective communication
-  endpoints.<br />
-  - <b>Dependency Injection:</b> Used throughout to promote loose coupling and
-  enhanced testability.<br />
-</p>
+A Mega Man Robots API expõe rotas para listar, buscar, criar, atualizar e remover robôs. Cada robô contém atributos como nome, modelo, elemento e habilidades especiais.
 
-## Dependencies
+> **Objetivo da IA**: Utilizamos **ChatGPT** para gerar descrições claras de cada seção e **GitHub Copilot** para sugerir exemplos de código e trechos de configuração.
 
-<table align="center">
-  <tr>
-    <th>Package</th>
-    <th>Version</th>
-    <th>Link</th>
-  </tr>
-  <tr>
-    <td>Microsoft.EntityFrameworkCore</td>
-    <td>3.1.8</td>
-    <td>
-      <a
-        href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.8"
-        >NuGet</a
-      >
-    </td>
-  </tr>
-  <tr>
-    <td>Microsoft.EntityFrameworkCore.Design</td>
-    <td>3.1.8</td>
-    <td>
-      <a
-        href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Design/3.1.8"
-        >NuGet</a
-      >
-    </td>
-  </tr>
-  <tr>
-    <td>Microsoft.EntityFrameworkCore.SqlServer</td>
-    <td>3.1.8</td>
-    <td>
-      <a
-        href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/3.1.8"
-        >NuGet</a
-      >
-    </td>
-  </tr>
-  <tr>
-    <td>Newtonsoft.Json</td>
-    <td>12.0.2</td>
-    <td>
-      <a href="https://www.nuget.org/packages/Newtonsoft.Json/12.0.2">NuGet</a>
-    </td>
-  </tr>
-</table>
+---
 
-## :gear: Arch
+## Funcionalidades
 
-```🌐
-src
-├── 📂 Controllers      [Routes for endpoints]
-├── 📂 Models           [Database models]
-├── 📂 Services         [Business rules]
-├── 📂 Middlewares      [Intermediate functions between the HTTP request and the final server response]
-├── 📂 Database         [Structures related to the database]
-│   ├── 📂 DTOs             [Input Models and View Models (Data Transfer Objects)]
-│   ├── 📂 EntityFramework  [Files related to the ORM Entity Framework]
-│   │     ├── 📂 Context         [Entity context settings]
-│   │     ├── 📂 Migrations      [Migrations for database updates]
-│   ├── 📂 Repositories     [Repository pattern]
+* **GET** `/api/robots`: lista todos os robôs cadastrados.
+* **GET** `/api/robots/{id}`: obtém detalhes de um robô específico.
+* **POST** `/api/robots`: adiciona um novo robô.
+* **PUT** `/api/robots/{id}`: atualiza dados de um robô.
+* **DELETE** `/api/robots/{id}`: remove um robô.
+
+---
+
+## Pré-requisitos
+
+* [.NET Core SDK 7.0+](https://dotnet.microsoft.com/download)
+* [SQL Server Express](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
+* [Postman](https://www.postman.com/) ou similar para testes de API
+
+---
+
+## Instalação e Execução
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/MegaApiDotnetCore.git
+cd MegaApiDotnetCore
+
+# Configure string de conexão no appsettings.json
+# Exemplo:
+# "ConnectionStrings": { "DefaultConnection": "Server=.\\SQLEXPRESS;Database=MegaApi;Trusted_Connection=True;" }
+
+# Restaure dependências e execute
+dotnet restore
+dotnet run
 ```
 
-## License This software is licensed under the terms of the [MIT]
+A API estará disponível em `https://localhost:5001`.
 
-⌨️ FelipeAguiar -
-[Github](https://github.com/felipeAguiarCode)
+---
+
+## Arquitetura do Projeto
+
+* **Controllers**: definem rotas e orquestram chamadas a serviços.
+* **Services**: implementam lógica de negócio.
+* **Repositories**: realizam operações de acesso a dados via Entity Framework Core.
+* **Models**: classes de entidade e DTOs.
+
+> **Geração de Diagrama**: Utilizamos o plugin **PlantUML** integrado ao VSCode com o **Copilot** sugerindo a sintaxe UML.
+
+---
+
+## Endpoints da API
+
+| Método | Rota               | Descrição                          |
+| ------ | ------------------ | ---------------------------------- |
+| GET    | `/api/robots`      | Retorna todos os robôs             |
+| GET    | `/api/robots/{id}` | Retorna um robô pelo identificador |
+| POST   | `/api/robots`      | Cria um novo robô                  |
+| PUT    | `/api/robots/{id}` | Atualiza um robô existente         |
+| DELETE | `/api/robots/{id}` | Deleta um robô                     |
+
+---
+
+## Exemplos de Uso
+
+### Listar Robôs
+
+```bash
+curl -X GET https://localhost:5001/api/robots
+```
+
+**Resposta**:
+
+```json
+[
+  { "id": 1, "name": "Cut Man", "model": "CM-01", "element": "Energia Cortante" },
+  { "id": 2, "name": "Guts Man", "model": "GM-02", "element": "Super Força" }
+]
+```
+
+### Criar Robô
+
+```bash
+curl -X POST https://localhost:5001/api/robots \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "Elec Man", "model": "EM-03", "element": "Eletricidade" }'
+```
+
+---
+
+## Diagrama de Fluxo
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API
+    participant DB
+
+    Client->>API: POST /api/robots
+    API->>Services: validar e mapear DTO
+    Services->>Repositories: salvar entidade
+    Repositories->>DB: INSERT Robot
+    DB-->>Repositories: OK
+    Repositories-->>Services: entidade salva
+    Services-->>API: retornar resposta 201
+    API-->>Client: 201 Created
+```
+
+> **Nota**: o código acima foi gerado com auxílio do **Copilot** e ajustado via **ChatGPT**.
+
+---
+
+## Como Contribuir
+
+1. Fork deste repositório.
+2. Crie uma branch (`feature/nova-funcionalidade`).
+3. Faça commit das alterações.
+4. Envie um Pull Request.
+
+> **Dica de IA**: use o **Copilot** para sugerir mensagens de commit claras e descritivas.
+
+---
+
+## Licença
+
+Este projeto está licenciado sob a **MIT License**. Consulte o arquivo [LICENSE](LICENSE) para detalhes.
